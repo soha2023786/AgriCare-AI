@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriCare AI | Smart Farming</title><link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top"><div class="brand">🌱 AgriCare <b>AI</b></div><div class="tag">Smart farming • Better decisions</div></header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="side-title">WORKSPACE</div>
+  <button class="nav active" data-page="overview">▦ Overview</button>
+  <button class="nav" data-page="fertilizer">🌿 Fertilizer recommendation</button>
+  <button class="nav" data-page="pest">🐛 Pest detection</button>
+  <button class="nav" data-page="market">📈 Market intelligence</button>
+  <button class="nav" data-page="voice">🎙 Voice assistant</button>
+  <button class="nav" data-page="twin">🌾 Farm digital twin</button>
+  <div class="side-title existing">EXISTING PLATFORM</div>
+  <button class="nav" data-page="disease">🩺 Disease guidance</button>
+  <button class="nav" data-page="irrigation">💧 Smart irrigation</button>
+  <button class="nav" data-page="assistant">🤖 AI assistant</button>
+  <div class="sidebar-foot">AgriCare AI · v2.0</div>
+</aside>
+<main>
+<section id="overview" class="page show">
+ <div class="welcome"><div><p class="eyebrow">AGRICULTURE INTELLIGENCE PLATFORM</p><h1>Grow smarter with <span>AgriCare AI</span></h1><p>One workspace for crop care, soil insights and farm decisions.</p></div><div class="sun">☀️</div></div>
+ <div class="stats"><div class="stat"><small>PLATFORM STATUS</small><strong class="green">● Online</strong></div><div class="stat"><small>FEATURE MODULES</small><strong>10</strong></div><div class="stat"><small>SMART FARMING</small><strong>AI + Data</strong></div></div>
+ <h2>Explore your tools</h2><div class="cards">
+ <article class="card" data-go="fertilizer"><div class="icon">🌿</div><h3>Fertilizer recommendation</h3><p>Review NPK and soil pH readings for basic nutrient screening.</p><span>Open module →</span></article>
+ <article class="card" data-go="pest"><div class="icon">🐛</div><h3>Pest detection</h3><p>Upload a crop image. Connect a trained model for real detection.</p><span>Open module →</span></article>
+ <article class="card" data-go="market"><div class="icon">📈</div><h3>Market intelligence</h3><p>View the sample mandi-price interface and integration status.</p><span>Open module →</span></article>
+ <article class="card" data-go="voice"><div class="icon">🎙️</div><h3>Multilingual voice assistant</h3><p>Speak or type in English, Telugu or Hindi.</p><span>Open module →</span></article>
+ <article class="card" data-go="twin"><div class="icon">🌾</div><h3>Farm digital twin</h3><p>Explore an illustrative moisture and heat-risk scenario.</p><span>Open module →</span></article>
+ <article class="card" data-go="irrigation"><div class="icon">💧</div><h3>Smart irrigation</h3><p>Get basic guidance from a soil-moisture reading.</p><span>Open module →</span></article>
+ </div>
+ <div class="notice">Deployment note: market prices and digital-twin results are clearly labelled demo outputs. Pest detection needs a trained model before it can return real predictions.</div>
+</section>
+<section id="fertilizer" class="page">
+ <p class="eyebrow">SOIL INTELLIGENCE</p><h1>Fertilizer recommendation</h1><p class="lead">Enter your soil-test values to receive a preliminary nutrient screening.</p>
+ <div class="panel formgrid"><label>Crop<input id="crop" value="Tomato"></label><label>Soil type<select id="soil"><option>Loamy</option><option>Clay</option><option>Sandy</option><option>Black soil</option><option>Red soil</option></select></label>
+ <label>Nitrogen (N)<input id="n" type="number" value="35" min="0" max="500"></label><label>Phosphorus (P)<input id="p" type="number" value="28" min="0" max="500"></label><label>Potassium (K)<input id="k" type="number" value="45" min="0" max="500"></label><label>Soil pH<input id="ph" type="number" value="6.5" min="0" max="14" step=".1"></label>
+ <button class="primary wide" onclick="fertilizer()">Analyze soil</button></div><div id="fertResult" class="result"></div>
+</section>
+<section id="pest" class="page">
+ <p class="eyebrow">COMPUTER VISION</p><h1>Pest detection</h1><p class="lead">Upload a clear crop or pest image (JPG, PNG or WEBP; maximum 10 MB).</p>
+ <div class="panel"><input id="pestFile" type="file" accept="image/png,image/jpeg,image/webp"><button class="primary" onclick="detectPest()">Upload image</button><div id="pestPreview"></div></div><div id="pestResult" class="result"></div>
+ <div class="notice">A trained pest-detection model is not included in this starter deployment. The API accepts images but will not invent a pest label.</div>
+</section>
+<section id="market" class="page">
+ <p class="eyebrow">MARKET INTELLIGENCE</p><h1>Crop market prices</h1><p class="lead">Explore the interface for mandi price comparison.</p>
+ <div class="panel formgrid"><label>Crop<select id="marketCrop"><option>Tomato</option><option>Rice</option><option>Cotton</option><option>Onion</option><option>Maize</option></select></label><label>Market<input id="marketName" value="Hyderabad"></label><button class="primary wide" onclick="market()">Get prices</button></div><div id="marketResult" class="result"></div>
+</section>
+<section id="voice" class="page">
+ <p class="eyebrow">ACCESSIBILITY</p><h1>Multilingual voice assistant</h1><p class="lead">Ask a farming question in English, Telugu or Hindi. Voice input depends on browser support.</p>
+ <div class="panel"><label>Language<select id="voiceLang"><option>English</option><option>Telugu</option><option>Hindi</option></select></label><label>Your question<textarea id="voiceQuestion" placeholder="e.g. Why are my tomato leaves turning yellow?"></textarea></label><div class="actions"><button class="primary" onclick="askAssistant('voice')">Ask assistant</button><button class="secondary" onclick="startSpeech()">🎙 Speak</button></div><div id="voiceResult" class="result"></div></div>
+</section>
+<section id="twin" class="page">
+ <p class="eyebrow">SCENARIO SIMULATION</p><h1>Farm digital twin</h1><p class="lead">Adjust field conditions to explore an illustrative farm scenario.</p>
+ <div class="panel formgrid"><label>Crop<input id="tCrop" value="Tomato"></label><label>Farm area (acres)<input id="area" type="number" value="1" min=".1"></label><label>Soil moisture (%)<input id="moist" type="number" value="35" min="0" max="100"></label><label>Temperature (°C)<input id="temp" type="number" value="30" min="-10" max="60"></label><label>Irrigation setting (%)<input id="irr" type="number" value="100" min="0" max="200"></label><label>Simulation days<input id="days" type="number" value="7" min="1" max="90"></label><button class="primary wide" onclick="simulate()">Run simulation</button></div><div id="twinResult" class="result"></div>
+</section>
+<section id="disease" class="page"><p class="eyebrow">CROP HEALTH</p><h1>Disease guidance</h1><p class="lead">General first-step guidance while arranging a crop diagnosis.</p><div class="panel"><label>Crop<input id="diseaseCrop" value="Tomato"></label><button class="primary" onclick="disease()">Get guidance</button><div id="diseaseResult" class="result"></div></div></section>
+<section id="irrigation" class="page"><p class="eyebrow">WATER MANAGEMENT</p><h1>Smart irrigation advice</h1><div class="panel"><label>Soil moisture (%)<input id="irrigMoist" type="number" value="35" min="0" max="100"></label><button class="primary" onclick="irrigation()">Check irrigation</button><div id="irrigResult" class="result"></div></div></section>
+<section id="assistant" class="page"><p class="eyebrow">AGRICARE ASSISTANT</p><h1>Farming assistant</h1><div class="panel"><label>Language<select id="assistantLang"><option>English</option><option>Telugu</option><option>Hindi</option></select></label><label>Question<textarea id="assistantQuestion" placeholder="Ask about crop care, soil or irrigation"></textarea></label><button class="primary" onclick="askAssistant('assistant')">Ask question</button><div id="assistantResult" class="result"></div></div></section>
+<footer>AgriCare AI · Verify agricultural decisions with local experts and official data sources.</footer>
+</main></div><script src="/static/app.js"></script></body></html>
